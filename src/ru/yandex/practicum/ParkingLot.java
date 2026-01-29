@@ -13,10 +13,12 @@ public class ParkingLot extends AbstractParkingLot {
 
     public ParkingLot(int totalSpots, int electricSpots, int premiumSpots) {
         super(totalSpots, electricSpots, premiumSpots);
-        int normalSpots = totalSpots - electricSpots - premiumSpots;
-        this.freeN = normalSpots;
-        this.freeE = electricSpots;
-        this.freeP = premiumSpots;
+        int allowedElectricSpots = Math.min(electricSpots, totalSpots);
+        int allowedPremiumSpots = Math.min(premiumSpots, totalSpots - allowedElectricSpots);
+        int allowedNormalSpots = totalSpots - allowedElectricSpots - allowedPremiumSpots;
+        this.freeE = allowedElectricSpots;
+        this.freeP = allowedPremiumSpots;
+        this.freeN = allowedNormalSpots;
 
     }
 
